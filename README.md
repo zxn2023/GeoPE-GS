@@ -8,14 +8,21 @@ GeoPE-GS builds on [Luminance-GS](https://github.com/cuiziteng/Luminance-GS) and
 
 ## Installation
 
-The environment follows the Luminance-GS setup. A Linux machine with an NVIDIA GPU and a compatible CUDA toolkit is recommended. The original setup used Python 3.9+, PyTorch 1.13.1, gsplat 1.0, and NumPy 1.24.3. Install a CUDA-enabled PyTorch build appropriate for your system before the commands below.
+The environment follows the Luminance-GS setup. A Linux machine with an NVIDIA GPU and a compatible CUDA toolkit (including `nvcc`) is recommended. The original setup used Python 3.9+, PyTorch 1.13.1, gsplat 1.0, and NumPy 1.24.3. Install a CUDA-enabled PyTorch build appropriate for your system before the commands below.
 
-From the repository root:
+Clone with the GLM submodule required by the local CUDA extension:
+
+```bash
+git clone --recurse-submodules https://github.com/zxn2023/GeoPE-GS.git
+cd GeoPE-GS
+```
+
+If you already cloned the repository, run `git submodule update --init --recursive` from its root. Then install the Python dependencies:
 
 ```bash
 python -m pip install numpy==1.24.3
 python -m pip install -r examples/requirements.txt
-python -m pip install -e .
+python -m pip install --no-build-isolation -e .
 ```
 
 The final command installs the **local** `gsplat/` code and builds its CUDA extension. Do not install a second `gsplat` package on top of it. CUDA compilation requires a working compiler toolchain and may take several minutes. The exact environment and GPU run for this cleaned copy have not yet been independently verified.

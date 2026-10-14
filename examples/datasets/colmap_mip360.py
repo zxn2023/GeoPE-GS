@@ -1,3 +1,4 @@
+# Modified from Luminance-GS for the GeoPE-GS release; see NOTICE.md.
 import os
 import json
 from typing import Any, Dict, List, Optional

@@ -1,3 +1,4 @@
+# Modified from Luminance-GS for the GeoPE-GS release; see NOTICE.md.
 import random
 
 import numpy as np
@@ -339,4 +340,3 @@ if __name__ == "__main__":
     print(output)
     print(output.shape)  
     print(output[:,0].shape)
-    

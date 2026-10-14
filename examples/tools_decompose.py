@@ -1,3 +1,4 @@
+# Modified from Luminance-GS for the GeoPE-GS release; see NOTICE.md.
 from turtle import distance
 import numpy as np
 import torch
