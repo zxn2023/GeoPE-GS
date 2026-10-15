@@ -4,9 +4,9 @@ Official code for **GeoPE-GS: Geometry-Conditioned Pseudo-Enhancement for Low-Li
 
 > **Release status:** Code is available. Datasets and results will be shared separately. Pretrained weights are not currently available.
 
-## 部署教程：按顺序复制运行
+## 部署与使用
 
-以下命令以 **AutoDL / Ubuntu 22.04 / Python 3.10 / 系统 CUDA 11.8 / NVIDIA GPU** 为例。服务器镜像请选择已有 Miniconda 或 Conda3 的 Python 3.10 环境。命令在 Linux 终端中执行；每个灰色代码框可整块复制。其他 Linux 服务器可以照做，但需先准备兼容的 NVIDIA 驱动、CUDA toolkit（包含 `nvcc`）和 Python 3.9 或 3.10。
+以下以 **AutoDL / Ubuntu 22.04 / Python 3.10 / CUDA 11.8** 为例。需要 NVIDIA GPU、兼容的驱动和包含 `nvcc` 的 CUDA toolkit。
 
 ### 1. 查看环境
 
@@ -16,11 +16,11 @@ nvidia-smi
 nvcc --version
 ```
 
-应能看到 Python 3.10、NVIDIA GPU 和 CUDA 编译器。如果 `nvcc` 找不到，需要安装 CUDA toolkit；仅安装 PyTorch 不会提供它。
+确认 Python、GPU 驱动和 CUDA 编译器可用。
 
 ### 2. 下载代码
 
-AutoDL 的数据盘通常位于 `/root/autodl-tmp`。在其他服务器上，把第一行换成你自己的工作目录。
+以下使用 AutoDL 的 `/root/autodl-tmp` 目录；其他服务器请替换为实际工作目录。
 
 ```bash
 cd /root/autodl-tmp
@@ -28,7 +28,7 @@ git clone --recurse-submodules https://github.com/zxn2023/GeoPE-GS.git
 cd GeoPE-GS
 ```
 
-已经克隆过仓库时，在仓库根目录运行以下命令补齐 GLM 子模块：
+已有仓库可运行以下命令补齐 GLM 子模块：
 
 ```bash
 git submodule update --init --recursive
@@ -36,26 +36,25 @@ git submodule update --init --recursive
 
 ### 3. 安装 PyTorch 和依赖
 
-下面的 PyTorch 1.13.1 + CUDA 11.7 安装命令来自 [PyTorch 官方历史版本说明](https://pytorch.org/get-started/previous-versions/)。这套组合对应系统 CUDA 11.8 的部署记录。请先安装 PyTorch，再编译仓库内的 gsplat；不要额外安装另一份 gsplat。
+先安装 PyTorch 1.13.1 + CUDA 11.7，再安装项目依赖和仓库内的 gsplat。PyTorch 安装命令见[官方历史版本说明](https://pytorch.org/get-started/previous-versions/)。
 
 ```bash
 python -m pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
 python -m pip install -r examples/requirements.txt
-python -m pip install numpy==1.24.3
 python -m pip install --no-build-isolation -e .
 ```
 
-最后一行会编译本仓库的 CUDA 扩展，可能需要几分钟。安装后复制下面的检查命令：
+最后一行会编译本仓库的 CUDA 扩展。安装后检查：
 
 ```bash
 python -c "import torch, gsplat, gsplat.csrc; print('PyTorch:', torch.__version__); print('PyTorch CUDA:', torch.version.cuda); print('GPU available:', torch.cuda.is_available()); print('gsplat:', gsplat.__version__)"
 ```
 
-`GPU available:` 应为 `True`；`import gsplat.csrc` 成功表示本地 CUDA 扩展已可导入。若你使用的机器或 CUDA 版本不同，应选择与其兼容的 PyTorch 安装包。
+`GPU available:` 应为 `True`，且 `gsplat.csrc` 应能成功导入。其他 CUDA 环境需选择兼容的 PyTorch 安装包。
 
 ### 4. 放置数据
 
-数据集**尚未随代码公开**，需要先自行放到仓库的 `data/` 目录。`data/` 已加入 `.gitignore`，训练结果也不会被提交到 GitHub。至少要满足下列目录结构；文件名大小写在 Linux 上必须匹配。
+数据集尚未随代码公开。低光数据放在仓库的 `data/` 目录，结构如下（Linux 区分文件名大小写）：
 
 ```text
 GeoPE-GS/
@@ -70,23 +69,12 @@ GeoPE-GS/
 └── examples/
 ```
 
-`low/` 是低光输入，`high/` 是评估时使用的参考图像。换其他低光场景时，把下方命令中的 `buu` 改为对应目录名。先在仓库根目录确认数据确实存在：
+`low/` 是低光输入，`high/` 是评估参考图像。其他低光场景请替换命令中的 `buu`。
 
-```bash
-ls data/LOM_full/buu
-```
-
-### 5. 训练 GeoPE-GS
-
-先进入 `examples/`，确认低光数据已放好。`--result_dir` 指定输出目录，可以改成你自己的路径。
+### 5. 训练 GeoPE-GS（LOM 低光，buu）
 
 ```bash
 cd /root/autodl-tmp/GeoPE-GS/examples
-```
-
-**LOM 低光（buu，10,000 步）：**
-
-```bash
 python simple_trainer_ours.py \
   --data_dir ../data/LOM_full/buu \
   --exp_name low \
@@ -95,11 +83,11 @@ python simple_trainer_ours.py \
   --batch_size 1
 ```
 
-不要在反斜杠 `\` 后面加注释，否则整块复制到 Bash 时会报错。训练完成后，在 `--result_dir` 下查看 `ckpts/`（模型）、`stats/`（指标）、`renders/`（渲染）和 `tb/`（TensorBoard 日志）。
+结果写入 `--result_dir`，包括 `ckpts/`、`stats/`、`renders/` 和 `tb/`。
 
 ### 6. 用已有 checkpoint 评估
 
-下面以第 5 步训练出的 LOM 低光模型为例。`--ckpt` 会跳过训练，加载模型进行评估并渲染轨迹；当前代码**没有** `--eval_only` 参数。
+使用训练生成的 `best.ckpt` 评估并渲染：
 
 ```bash
 cd /root/autodl-tmp/GeoPE-GS/examples
@@ -110,11 +98,9 @@ python simple_trainer_ours.py \
   --ckpt ../results/LOM/buu_low/ckpts/best.ckpt
 ```
 
-如果找不到 `best.ckpt`，先检查训练输出目录中实际保存的文件名。仓库目前不提供预训练权重。
-
 ### 7. 查看 TensorBoard
 
-训练时在另一个终端运行，打开服务器的 6006 端口或使用平台提供的端口映射：
+训练时可在另一个终端运行；远程访问需映射 6006 端口：
 
 ```bash
 cd /root/autodl-tmp/GeoPE-GS
@@ -142,7 +128,6 @@ python simple_trainer_ours.py --help
 | `examples/utils.py` | Geometry encoder and model utilities |
 | `gsplat/rendering_double.py` | Dual-branch rasterization |
 | `examples/datasets/` | Dataset loaders; the guide above covers LOM low-light training |
-| `examples/simple_trainer_3dgs.py` | Included 3DGS baseline example |
 
 ## Citation and attribution
 
