@@ -60,32 +60,25 @@ python -c "import torch, gsplat, gsplat.csrc; print('PyTorch:', torch.__version_
 ```text
 GeoPE-GS/
 ├── data/
-│   ├── LOM_full/
-│   │   └── buu/
-│   │       ├── colmap_sparse/0/
-│   │       ├── low/
-│   │       ├── high/
-│   │       ├── over_exp/
-│   │       ├── transforms_train.json
-│   │       └── transforms_test.json
-│   └── NeRF_360/
-│       └── bicycle/
-│           ├── sparse/0/
-│           ├── images/
-│           └── images_8_variance/
+│   └── LOM_full/
+│       └── buu/
+│           ├── colmap_sparse/0/
+│           ├── low/
+│           ├── high/
+│           ├── transforms_train.json
+│           └── transforms_test.json
 └── examples/
 ```
 
-仅训练低光场景时，`over_exp/` 可以暂不准备；训练过曝场景时需要它。换其他场景时，把下方命令中的 `buu` 或 `bicycle` 改为对应目录名。先在仓库根目录确认数据确实存在：
+`low/` 是低光输入，`high/` 是评估时使用的参考图像。换其他低光场景时，把下方命令中的 `buu` 改为对应目录名。先在仓库根目录确认数据确实存在：
 
 ```bash
 ls data/LOM_full/buu
-ls data/NeRF_360/bicycle
 ```
 
 ### 5. 训练 GeoPE-GS
 
-先进入 `examples/`。以下三种任务**分别选择一块命令运行**；运行前确认对应数据已放好。`--result_dir` 指定输出目录，可以改成你自己的路径。
+先进入 `examples/`，确认低光数据已放好。`--result_dir` 指定输出目录，可以改成你自己的路径。
 
 ```bash
 cd /root/autodl-tmp/GeoPE-GS/examples
@@ -102,32 +95,7 @@ python simple_trainer_ours.py \
   --batch_size 1
 ```
 
-**LOM 过曝（buu，10,000 步）：**
-
-```bash
-python simple_trainer_ours.py \
-  --data_dir ../data/LOM_full/buu \
-  --exp_name over_exp \
-  --result_dir ../results/LOM/buu_over_exp \
-  --max_steps 10000 \
-  --batch_size 1
-```
-
-**MipNeRF360 变化曝光（bicycle，30,000 步）：**
-
-```bash
-python simple_trainer_ours.py \
-  --data_dir ../data/NeRF_360/bicycle \
-  --exp_name variance \
-  --data_factor 8 \
-  --result_dir ../results/NeRF_360/bicycle \
-  --max_steps 30000 \
-  --eval_steps 15000 20000 30000 \
-  --save_steps 15000 20000 30000 \
-  --batch_size 1
-```
-
-不要在反斜杠 `\` 后面加注释，否则整块复制到 Bash 时会报错。训练完成后，在各自的 `--result_dir` 下查看 `ckpts/`（模型）、`stats/`（指标）、`renders/`（渲染）和 `tb/`（TensorBoard 日志）。
+不要在反斜杠 `\` 后面加注释，否则整块复制到 Bash 时会报错。训练完成后，在 `--result_dir` 下查看 `ckpts/`（模型）、`stats/`（指标）、`renders/`（渲染）和 `tb/`（TensorBoard 日志）。
 
 ### 6. 用已有 checkpoint 评估
 
@@ -158,7 +126,7 @@ tensorboard --logdir results/LOM/buu_low/tb --host 0.0.0.0 --port 6006
 - `No module named gsplat`：回到仓库根目录，重新执行第 3 步最后一行。
 - `third_party/glm/glm/glm.hpp: No such file`：回到仓库根目录，执行 `git submodule update --init --recursive`，然后重新安装本地扩展。
 - `CUDA available: False` 或编译器报错：检查 GPU 驱动、`nvcc --version`、PyTorch CUDA 版本及编译器是否匹配。
-- `Image folder ... does not exist`：核对第 4 步的数据目录和大小写。过曝数据里 `.jpg` 与 `.JPG` 不同，不要未经检查批量重命名。
+- `Image folder ... does not exist`：核对第 4 步的数据目录、图像文件名和大小写。
 
 完整命令行参数可在 `examples/` 下查看：
 
@@ -173,7 +141,7 @@ python simple_trainer_ours.py --help
 | `examples/simple_trainer_ours.py` | GeoPE-GS training and evaluation |
 | `examples/utils.py` | Geometry encoder and model utilities |
 | `gsplat/rendering_double.py` | Dual-branch rasterization |
-| `examples/datasets/` | LOM and MipNeRF360 data loaders |
+| `examples/datasets/` | Dataset loaders; the guide above covers LOM low-light training |
 | `examples/simple_trainer_3dgs.py` | Included 3DGS baseline example |
 
 ## Citation and attribution
