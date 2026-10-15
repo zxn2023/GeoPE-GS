@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" role="img" aria-labelledby="title desc">
+  <title id="title">GeoPE-GS</title>
+  <desc id="desc">Abstract geometry and Gaussian splats on a dark background, representing low-light 3D Gaussian splatting.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081323"/>
+      <stop offset="0.58" stop-color="#0d1b30"/>
+      <stop offset="1" stop-color="#15243b"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#58e1e9"/>
+      <stop offset="1" stop-color="#94d8ff"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#ee9b64"/>
+      <stop offset="1" stop-color="#ffe2a2"/>
+    </linearGradient>
+    <radialGradient id="splatCyan">
+      <stop offset="0" stop-color="#a5f5ff" stop-opacity="0.9"/>
+      <stop offset="0.32" stop-color="#5ac8ec" stop-opacity="0.54"/>
+      <stop offset="1" stop-color="#2c8fd3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="splatWarm">
+      <stop offset="0" stop-color="#fff0bf" stop-opacity="0.95"/>
+      <stop offset="0.3" stop-color="#ffbd80" stop-opacity="0.58"/>
+      <stop offset="1" stop-color="#ed7f63" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo">
+      <stop offset="0" stop-color="#216a9e" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#216a9e" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#93bbd8" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+    <clipPath id="round">
+      <rect x="0" y="0" width="1600" height="420" rx="24"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#round)">
+    <rect width="1600" height="420" fill="url(#background)"/>
+    <rect width="1600" height="420" fill="url(#grid)"/>
+    <circle cx="1235" cy="205" r="365" fill="url(#halo)"/>
+    <path d="M 760 0 L 585 420" stroke="#76dbef" stroke-opacity="0.12" stroke-width="2"/>
+    <path d="M 794 0 L 619 420" stroke="#76dbef" stroke-opacity="0.055" stroke-width="2"/>
+
+    <g font-family="Segoe UI, Arial, sans-serif">
+      <text x="100" y="78" fill="#8dd8e9" font-size="19" font-weight="700" letter-spacing="4">LOW-LIGHT 3D RECONSTRUCTION</text>
+      <text x="94" y="202" fill="#f6fbff" font-size="106" font-weight="750" letter-spacing="-5">GeoPE-GS</text>
+      <rect x="100" y="232" width="70" height="5" rx="2.5" fill="url(#cyan)"/>
+      <text x="100" y="282" fill="#cee4ef" font-size="25" font-weight="500">Geometry-Conditioned Pseudo-Enhancement</text>
+      <text x="100" y="319" fill="#8ea9bd" font-size="22">for Low-Light 3D Gaussian Splatting</text>
+      <text x="100" y="376" fill="#7392a8" font-size="15" letter-spacing="2">GEOMETRY  /  ENHANCEMENT  /  GAUSSIAN SPLATTING</text>
+    </g>
+
+    <!-- An abstract depth grid and splat field. This is not an experimental result. -->
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="1228" cy="305" rx="324" ry="85" stroke="#68bedd" stroke-opacity="0.15" stroke-width="1.5"/>
+      <ellipse cx="1228" cy="305" rx="226" ry="61" stroke="#68bedd" stroke-opacity="0.22" stroke-width="1.5"/>
+      <ellipse cx="1228" cy="305" rx="130" ry="36" stroke="#68bedd" stroke-opacity="0.23" stroke-width="1.5"/>
+      <path d="M 911 287 L 1558 351 M 966 253 L 1500 357 M 1024 224 L 1433 357 M 1090 204 L 1355 366 M 1160 189 L 1276 382" stroke="#77c4df" stroke-opacity="0.10"/>
+      <path d="M 1248 44 L 1075 147 L 1108 298 L 1278 224 Z" stroke="#83cde6" stroke-opacity="0.53" stroke-width="2"/>
+      <path d="M 1248 44 L 1430 139 L 1410 294 L 1278 224 Z" stroke="#93d8e8" stroke-opacity="0.44" stroke-width="2"/>
+      <path d="M 1075 147 L 1254 116 L 1430 139 M 1254 116 L 1278 224 M 1108 298 L 1240 354 L 1410 294 M 1240 354 L 1278 224" stroke="#74bdd9" stroke-opacity="0.27" stroke-width="1.5"/>
+      <path d="M 1075 147 L 1240 354 M 1430 139 L 1108 298" stroke="#9ad8e9" stroke-opacity="0.16" stroke-width="1.5" stroke-dasharray="6 8"/>
+      <path d="M 1248 44 L 1240 354" stroke="#a6e0eb" stroke-opacity="0.2" stroke-width="1.5" stroke-dasharray="5 8"/>
+      <path d="M 993 186 C 1118 120 1289 130 1500 196" stroke="#8ed6ed" stroke-opacity="0.23" stroke-width="2" stroke-dasharray="3 9"/>
+    </g>
+
+    <g>
+      <ellipse cx="1014" cy="286" rx="87" ry="45" transform="rotate(-23 1014 286)" fill="url(#splatCyan)"/>
+      <ellipse cx="1074" cy="178" rx="76" ry="39" transform="rotate(19 1074 178)" fill="url(#splatCyan)"/>
+      <ellipse cx="1171" cy="242" rx="95" ry="43" transform="rotate(-30 1171 242)" fill="url(#splatWarm)"/>
+      <ellipse cx="1248" cy="93" rx="62" ry="30" transform="rotate(10 1248 93)" fill="url(#splatCyan)"/>
+      <ellipse cx="1280" cy="226" rx="116" ry="53" transform="rotate(18 1280 226)" fill="url(#splatCyan)"/>
+      <ellipse cx="1355" cy="162" rx="79" ry="39" transform="rotate(-32 1355 162)" fill="url(#splatWarm)"/>
+      <ellipse cx="1416" cy="286" rx="98" ry="48" transform="rotate(-12 1416 286)" fill="url(#splatWarm)"/>
+      <ellipse cx="1510" cy="214" rx="60" ry="30" transform="rotate(28 1510 214)" fill="url(#splatCyan)"/>
+    </g>
+    <g fill="#c4eef7">
+      <circle cx="1075" cy="147" r="4"/><circle cx="1248" cy="44" r="4"/>
+      <circle cx="1278" cy="224" r="5"/><circle cx="1430" cy="139" r="4"/>
+      <circle cx="1108" cy="298" r="4"/><circle cx="1410" cy="294" r="4"/>
+    </g>
+    <g fill="#ffdfab">
+      <circle cx="1157" cy="230" r="3"/><circle cx="1340" cy="167" r="3"/>
+      <circle cx="1438" cy="279" r="3"/>
+    </g>
+    <rect x="0" y="0" width="1600" height="420" rx="24" fill="none" stroke="#9ad4e5" stroke-opacity="0.12" stroke-width="2"/>
+  </g>
+</svg>

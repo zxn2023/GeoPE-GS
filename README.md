@@ -1,5 +1,7 @@
 # GeoPE-GS: Geometry-Conditioned Pseudo-Enhancement for Low-Light 3D Gaussian Splatting
 
+![GeoPE-GS banner with abstract geometry and Gaussian splats](assets/geope-gs-banner.svg)
+
 Official code for **GeoPE-GS: Geometry-Conditioned Pseudo-Enhancement for Low-Light 3D Gaussian Splatting**. The training entry point is [`examples/simple_trainer_ours.py`](examples/simple_trainer_ours.py).
 
 > **Release status:** Code is available. Datasets and results will be shared separately. Pretrained weights are not currently available.
