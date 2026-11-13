@@ -32,6 +32,3 @@ events.out.tfevents.*
 Thumbs.db
 .vscode/
 .idea/
-
-# Published GeoPE-GS result images
-!assets/experiments/LOM-lowlight/*/renders/

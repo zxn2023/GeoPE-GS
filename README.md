@@ -2,21 +2,7 @@
 
 Official code for **GeoPE-GS: Geometry-Conditioned Pseudo-Enhancement for Low-Light 3D Gaussian Splatting**. The training entry point is [`examples/simple_trainer_ours.py`](examples/simple_trainer_ours.py).
 
-> **Release status:** Code and [LOM low-light results](assets/experiments/LOM-lowlight/README.md) are available. Datasets can be obtained through [Luminance-GS](https://github.com/cuiziteng/Luminance-GS/blob/main/Luminance-GS/README.md). Pretrained weights are not currently available.
-
-## Results
-
-We provide rendering results, training configurations, and validation statistics for the five LOM low-light scenes: **bike, buu, chair, shrub, and sofa**. [Download all results (ZIP)](https://github.com/zxn2023/GeoPE-GS/raw/refs/heads/main/assets/experiments/GeoPE-GS-LOM-lowlight.zip), including all supplied evaluation stages, or browse the [result files and configurations](assets/experiments/LOM-lowlight/README.md).
-
-The previews below show the **low-light branch render** and **enhanced branch render** for view `0000` at 10,000 training iterations (zero-based step `9999`). Both columns are model renders.
-
-| Scene | Low-light render | Enhanced render |
-| --- | --- | --- |
-| [bike](assets/experiments/LOM-lowlight/bike) | <img src="assets/experiments/LOM-lowlight/bike/renders/val_9999_0000_low.png" width="300" alt="bike: low-light branch render"> | <img src="assets/experiments/LOM-lowlight/bike/renders/val_9999_0000_enh.png" width="300" alt="bike: enhanced branch render"> |
-| [buu](assets/experiments/LOM-lowlight/buu) | <img src="assets/experiments/LOM-lowlight/buu/renders/val_9999_0000_low.png" width="300" alt="buu: low-light branch render"> | <img src="assets/experiments/LOM-lowlight/buu/renders/val_9999_0000_enh.png" width="300" alt="buu: enhanced branch render"> |
-| [chair](assets/experiments/LOM-lowlight/chair) | <img src="assets/experiments/LOM-lowlight/chair/renders/val_9999_0000_low.png" width="300" alt="chair: low-light branch render"> | <img src="assets/experiments/LOM-lowlight/chair/renders/val_9999_0000_enh.png" width="300" alt="chair: enhanced branch render"> |
-| [shrub](assets/experiments/LOM-lowlight/shrub) | <img src="assets/experiments/LOM-lowlight/shrub/renders/val_9999_0000_low.png" width="300" alt="shrub: low-light branch render"> | <img src="assets/experiments/LOM-lowlight/shrub/renders/val_9999_0000_enh.png" width="300" alt="shrub: enhanced branch render"> |
-| [sofa](assets/experiments/LOM-lowlight/sofa) | <img src="assets/experiments/LOM-lowlight/sofa/renders/val_9999_0000_low.png" width="300" alt="sofa: low-light branch render"> | <img src="assets/experiments/LOM-lowlight/sofa/renders/val_9999_0000_enh.png" width="300" alt="sofa: enhanced branch render"> |
+> **Release status:** Code is available. Datasets and results will be shared separately. Pretrained weights are not currently available.
 
 ## Installation and Usage
 
@@ -68,12 +54,7 @@ python -c "import torch, gsplat, gsplat.csrc; print('PyTorch:', torch.__version_
 
 ### 4. Prepare the Data
 
-The datasets used in this project can be obtained through the [dataset setup instructions in Luminance-GS](https://github.com/cuiziteng/Luminance-GS/blob/main/Luminance-GS/README.md):
-
-- **LOM (low-light and overexposure):** Luminance-GS points to the [Aleth-NeRF dataset](https://github.com/cuiziteng/Aleth-NeRF). [Download LOM](https://drive.google.com/file/d/1orgKEGApjwCm6G8xaupwHKxMbT2s9IAG/view).
-- **MipNeRF360-varying:** Use the [download provided by Luminance-GS](https://drive.google.com/file/d/1x0EHT5z9ZrA6JV7-y8A8ijQNFCRTjVMW/view?usp=sharing). This is a synthetic varying-lighting dataset based on MipNeRF360.
-
-Please follow the original dataset providers' usage terms and citation instructions. The low-light example below uses LOM. Place the data under the repository's `data/` directory using the following structure. File and directory names are case-sensitive on Linux.
+The datasets are not yet publicly available with the code. Place the low-light data under the repository's `data/` directory using the following structure. File and directory names are case-sensitive on Linux.
 
 ```text
 GeoPE-GS/
