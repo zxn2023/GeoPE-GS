@@ -2,7 +2,7 @@
 
 Official code for **GeoPE-GS: Geometry-Conditioned Pseudo-Enhancement for Low-Light 3D Gaussian Splatting**. The training entry point is [`examples/simple_trainer_ours.py`](examples/simple_trainer_ours.py).
 
-> **Release status:** Code is available. Datasets and results will be shared separately. Pretrained weights are not currently available.
+> **Release status:** Code and [experiment results](results/) are available. Datasets can be obtained through [Luminance-GS](https://github.com/cuiziteng/Luminance-GS/blob/main/Luminance-GS/README.md). Pretrained weights are not currently available.
 
 ## Installation and Usage
 
@@ -54,7 +54,7 @@ python -c "import torch, gsplat, gsplat.csrc; print('PyTorch:', torch.__version_
 
 ### 4. Prepare the Data
 
-The datasets are not yet publicly available with the code. Place the low-light data under the repository's `data/` directory using the following structure. File and directory names are case-sensitive on Linux.
+The datasets can be obtained through the [dataset setup instructions in Luminance-GS](https://github.com/cuiziteng/Luminance-GS/blob/main/Luminance-GS/README.md). Place the low-light data under the repository's `data/` directory using the following structure. File and directory names are case-sensitive on Linux.
 
 ```text
 GeoPE-GS/
